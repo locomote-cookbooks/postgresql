@@ -77,16 +77,10 @@ when "amazon"
 
 when "redhat","centos","scientific"
 
-  default[:postgresql][:version] = "8.4"
-  set[:postgresql][:dir] = "/var/lib/pgsql/data"
-
-  if node['platform_version'].to_f >= 6.0
-    default['postgresql']['client']['packages'] = %w{postgresql-devel}
-    default['postgresql']['server']['packages'] = %w{postgresql-server}
-  else
-    default['postgresql']['client']['packages'] = ["postgresql#{node['postgresql']['version'].split('.').join}-devel"]
-    default['postgresql']['server']['packages'] = ["postgresql#{node['postgresql']['version'].split('.').join}-server"]
-  end
+  default[:postgresql][:version] = "9.2"
+  set[:postgresql][:dir] = "/var/lib/pgsql/9.2/data"
+  default['postgresql']['client']['packages'] = ["postgresql#{node['postgresql']['version'].split('.').join}-devel"]
+  default['postgresql']['server']['packages'] = ["postgresql#{node['postgresql']['version'].split('.').join}-server"]
 
 when "suse"
 

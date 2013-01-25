@@ -34,6 +34,8 @@ when "8.4"
   node.default[:postgresql][:ssl] = "true"
 when "9.1"
   node.default[:postgresql][:ssl] = "true"
+when "9.2"
+  node.default[:postgresql][:ssl] = "off"
 end
 
 # Include the right "family" recipe for installing the server
@@ -50,7 +52,7 @@ template "#{node[:postgresql][:dir]}/pg_hba.conf" do
   owner "postgres"
   group "postgres"
   mode 0600
-  notifies :reload, resources(:service => "postgresql"), :immediately
+  notifies :reload, resources(:service => "postgresql-#{node['postgresql']['version']}"), :immediately
 end
 
 # Default PostgreSQL install has 'ident' checking on unix user 'postgres'

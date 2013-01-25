@@ -28,9 +28,9 @@ include_recipe "build-essential"
 include_recipe "postgresql::client"
 
 node['postgresql']['client']['packages'].each do |pg_pack|
-
   resources("package[#{pg_pack}]").run_action(:install)
-
 end
 
-chef_gem "pg"
+chef_gem "pg" do
+  options "-- --with-pg-config=/usr/pgsql-9.2/bin/pg_config"
+end
